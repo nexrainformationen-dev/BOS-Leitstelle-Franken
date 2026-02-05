@@ -8,449 +8,234 @@
 
   <style>
     :root{
-      --bg: #0b0f14;
+      --bg:#0b0f14;
       --bg2:#0f1622;
       --card:#121a27cc;
-      --card2:#0f1520cc;
       --text:#e7eefc;
       --muted:#a9b6cc;
       --line:#223049;
-      --accent:#e53935;  /* BOS-Rot */
-      --accent2:#ff6a00; /* warmes Highlight */
+      --accent:#e53935;
       --ok:#22c55e;
-      --shadow: 0 16px 50px rgba(0,0,0,.45);
-      --radius: 16px;
-      --radius2: 22px;
-      --max: 1100px;
+      --shadow:0 18px 45px rgba(0,0,0,.45);
+      --radius:18px;
+      --max:1100px;
     }
 
-    *{ box-sizing:border-box; }
-    html{ scroll-behavior:smooth; }
+    *{box-sizing:border-box;}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
       color:var(--text);
-      background:
-        radial-gradient(900px 450px at 20% -10%, rgba(229,57,53,.22), transparent 60%),
-        radial-gradient(900px 450px at 90% 0%, rgba(255,106,0,.14), transparent 55%),
-        radial-gradient(900px 450px at 50% 110%, rgba(59,130,246,.12), transparent 60%),
-        linear-gradient(180deg, var(--bg), var(--bg2));
-      min-height:100vh;
+      background:linear-gradient(180deg,var(--bg),var(--bg2));
     }
 
-    /* Container */
-    .wrap{ max-width:var(--max); margin:0 auto; padding:0 18px; }
+    .wrap{max-width:var(--max);margin:auto;padding:0 18px;}
 
-    /* Topbar */
+    /* HEADER */
     .topbar{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(10px);
-      background: linear-gradient(180deg, rgba(11,15,20,.86), rgba(11,15,20,.55));
-      border-bottom:1px solid rgba(34,48,73,.55);
+      position:sticky;top:0;z-index:50;
+      background:rgba(11,15,20,.9);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--line);
     }
     .topbar .inner{
-      display:flex; align-items:center; justify-content:space-between;
+      display:flex;align-items:center;justify-content:space-between;
       padding:12px 0;
     }
     .brand{
-      display:flex; align-items:center; gap:10px;
-      text-decoration:none; color:var(--text);
+      display:flex;align-items:center;gap:12px;
+      text-decoration:none;color:var(--text);
     }
-    .logoMark{
-      width:36px; height:36px; border-radius:12px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 55%),
-                  linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 10px 30px rgba(229,57,53,.18);
-      border:1px solid rgba(255,255,255,.12);
+    .brand img{
+      width:42px;height:42px;
+      object-fit:contain;
+      border-radius:10px;
     }
-    .brand b{ letter-spacing:.2px; }
-    .nav{
-      display:flex; gap:14px; align-items:center;
-    }
+    .brand b{display:block;}
+    .brand span{font-size:12px;color:var(--muted);}
+
     .nav a{
+      margin-left:14px;
       color:var(--muted);
       text-decoration:none;
       font-size:14px;
-      padding:8px 10px;
-      border-radius:12px;
-      transition:.15s ease;
     }
-    .nav a:hover{
-      color:var(--text);
-      background: rgba(255,255,255,.06);
-    }
+    .nav a:hover{color:var(--text);}
 
-    /* Buttons */
     .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      gap:10px;
-      padding:12px 16px;
+      padding:10px 16px;
       border-radius:14px;
-      border:1px solid rgba(255,255,255,.12);
       text-decoration:none;
-      color:var(--text);
-      font-weight:650;
-      background: rgba(255,255,255,.06);
-      transition:.15s ease;
-      box-shadow: 0 10px 25px rgba(0,0,0,.25);
-      white-space:nowrap;
+      color:white;
+      background:linear-gradient(135deg,#e53935,#ff6a00);
+      font-weight:600;
+      box-shadow:0 10px 30px rgba(229,57,53,.35);
     }
-    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); }
-    .btn.primary{
-      border-color: rgba(229,57,53,.45);
-      background: linear-gradient(135deg, rgba(229,57,53,.92), rgba(255,106,0,.72));
-      box-shadow: 0 14px 35px rgba(229,57,53,.22);
-    }
-    .btn.primary:hover{ filter: brightness(1.03); }
 
-    /* Hero */
+    /* HERO */
     .hero{
-      padding:42px 0 28px;
+      padding:80px 0 60px;
+      background:
+        linear-gradient(180deg,rgba(0,0,0,.6),rgba(0,0,0,.8)),
+        url("banner.jpg") center/cover no-repeat;
     }
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:18px;
-      align-items:stretch;
+    .hero h1{
+      font-size:clamp(28px,4vw,46px);
+      margin:0 0 12px;
     }
-    .heroCard{
-      border-radius: var(--radius2);
-      padding:24px;
-      background: linear-gradient(180deg, rgba(18,26,39,.88), rgba(15,21,32,.72));
-      border:1px solid rgba(34,48,73,.6);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
-    }
-    .heroCard:before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(600px 220px at 20% 0%, rgba(229,57,53,.22), transparent 60%),
-                  radial-gradient(600px 220px at 90% 0%, rgba(255,106,0,.16), transparent 55%);
-      pointer-events:none;
-      opacity:.9;
-    }
-    .heroContent{ position:relative; }
-    .kicker{
-      display:inline-flex; align-items:center; gap:10px;
+    .hero p{
+      max-width:600px;
       color:var(--muted);
-      font-size:13px;
-      letter-spacing:.2px;
-      margin-bottom:10px;
+      font-size:16px;
     }
-    .dot{
-      width:9px; height:9px; border-radius:99px;
-      background: var(--ok);
-      box-shadow: 0 0 0 4px rgba(34,197,94,.12);
-    }
-    h1{
-      margin:0 0 10px;
-      font-size: clamp(26px, 4.2vw, 44px);
-      line-height:1.12;
-      letter-spacing:-.6px;
-    }
-    .sub{
-      margin:0 0 16px;
-      color:var(--muted);
-      max-width: 62ch;
-      font-size: 15.5px;
-    }
-    .heroActions{
-      display:flex; gap:10px; flex-wrap:wrap;
-      margin-top:16px;
+    .hero .actions{
+      margin-top:20px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
     }
 
-    /* Stats */
-    .stats{
-      margin-top:14px;
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-    }
-    .stat{
-      padding:12px 14px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.08);
-    }
-    .stat b{ display:block; font-size:14px; }
-    .stat span{ display:block; color:var(--muted); font-size:12.5px; margin-top:2px; }
-
-    /* Sections */
-    section{ padding:18px 0; }
-    .sectionTitle{
-      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
-      margin: 22px 0 10px;
-    }
-    .sectionTitle h2{
-      margin:0;
-      font-size: 18px;
-      letter-spacing:.2px;
-    }
-    .sectionTitle p{
-      margin:0;
-      color:var(--muted);
-      font-size: 13px;
+    /* SECTIONS */
+    section{padding:50px 0;}
+    h2{
+      margin-bottom:16px;
+      font-size:22px;
+      color:#fff;
     }
 
-    /* Cards / grid */
     .grid{
       display:grid;
-      grid-template-columns: 1fr;
-      gap:12px;
+      grid-template-columns:1fr;
+      gap:18px;
     }
+
     .card{
-      border-radius: var(--radius);
-      padding:18px;
-      background: linear-gradient(180deg, rgba(18,26,39,.72), rgba(15,21,32,.55));
-      border:1px solid rgba(34,48,73,.55);
-      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+      background:var(--card);
+      padding:22px;
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
     }
-    .card h3{
-      margin:0 0 8px;
-      font-size: 16px;
-    }
-    .card p{ margin:0; color:var(--muted); font-size: 14.5px; }
-    .list{
-      margin:10px 0 0;
-      padding:0;
-      list-style:none;
-      display:grid;
-      gap:10px;
-    }
-    .li{
-      display:flex; gap:10px; align-items:flex-start;
-      color:var(--text);
-      font-size: 14.5px;
-    }
-    .tick{
-      width:18px; height:18px; border-radius:7px;
-      background: rgba(34,197,94,.12);
-      border:1px solid rgba(34,197,94,.35);
-      display:inline-flex; align-items:center; justify-content:center;
-      flex: 0 0 auto;
-      margin-top:1px;
-    }
-    .tick:before{ content:"✓"; font-size:12px; color: var(--ok); }
+    .card p{color:var(--muted);}
 
-    /* CTA banner */
-    .cta{
-      margin-top: 10px;
-      padding:18px;
-      border-radius: var(--radius2);
-      border:1px solid rgba(229,57,53,.35);
-      background:
-        radial-gradient(420px 160px at 20% 0%, rgba(229,57,53,.22), transparent 60%),
-        radial-gradient(420px 160px at 90% 0%, rgba(255,106,0,.16), transparent 55%),
-        rgba(255,255,255,.04);
-      box-shadow: var(--shadow);
-      display:flex;
-      gap:14px;
-      align-items:center;
-      justify-content:space-between;
-      flex-wrap:wrap;
-    }
-    .cta b{ font-size:15px; }
-    .cta span{ color:var(--muted); font-size:13px; display:block; margin-top:2px; }
+    ul{padding-left:18px;}
+    li{margin-bottom:8px;}
 
-    /* Footer */
+    /* FOOTER */
     footer{
-      padding:26px 0 34px;
+      padding:30px 0;
+      border-top:1px solid var(--line);
+      text-align:center;
       color:var(--muted);
-      border-top:1px solid rgba(34,48,73,.55);
-      margin-top: 18px;
-      font-size: 13px;
+      font-size:13px;
     }
-    .footRow{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      flex-wrap:wrap;
-    }
-    .smallLinks a{
-      color:var(--muted);
-      text-decoration:none;
-      margin-left:10px;
-    }
-    .smallLinks a:hover{ color:var(--text); }
 
-    /* Responsive */
-    @media (min-width: 860px){
-      .heroGrid{ grid-template-columns: 1.2fr .8fr; }
-      .grid{ grid-template-columns: 1fr 1fr; }
-      .stats{ grid-template-columns: 1fr 1fr; }
+    @media(min-width:900px){
+      .grid{grid-template-columns:1fr 1fr;}
     }
-    @media (max-width: 520px){
-      .nav{ display:none; } /* mobil clean */
+    @media(max-width:600px){
+      .nav{display:none;}
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Topbar -->
-  <div class="topbar">
-    <div class="wrap">
-      <div class="inner">
-        <a class="brand" href="#top">
-          <img src="logo.png"
-     alt="BOS Leitstelle Franken Logo"
-     style="width:42px;height:42px;object-fit:contain;border-radius:10px;">
-          <div>
-            <b>BOS Leitstelle Franken</b><br/>
-            <span style="color:var(--muted);font-size:12px;">Leitstellenspiel • Casual • Aufbau</span>
-          </div>
-        </a>
+<!-- HEADER -->
+<div class="topbar">
+  <div class="wrap inner">
+    <a class="brand" href="#">
+      <img src="logo.png" alt="BOS Leitstelle Franken Logo">
+      <div>
+        <b>BOS Leitstelle Franken</b>
+        <span>Leitstellenspiel · Casual</span>
+      </div>
+    </a>
 
-        <div class="nav" aria-label="Navigation">
-          <a href="#ueber">Über uns</a>
-          <a href="#regeln">Regeln</a>
-          <a href="#mitmachen">Mitmachen</a>
-          <a href="#discord">Discord</a>
-        </div>
+    <div class="nav">
+      <a href="#ueber">Über uns</a>
+      <a href="#regeln">Regeln</a>
+      <a href="#mitmachen">Mitmachen</a>
+    </div>
 
-        <a class="btn primary" href="https://discord.gg/wKeZ4f7uV" target="_blank" rel="noreferrer">
-          Discord beitreten
-        </a>
+    <a class="btn" href="https://discord.gg/wKeZ4f7uV" target="_blank">Discord</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap">
+    <h1>Entspannt spielen.<br>Gemeinsam wachsen.</h1>
+    <p>
+      Casual Leitstellenspiel-Verband im Aufbau.
+      Kein Leistungsdruck, kein Zwang – einfach zusammen spielen.
+    </p>
+
+    <div class="actions">
+      <a class="btn" href="https://discord.gg/wKeZ4f7uV" target="_blank">Discord beitreten</a>
+      <a class="btn" href="#mitmachen">Mitmachen</a>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<section id="ueber">
+  <div class="wrap">
+    <h2>Über uns</h2>
+    <div class="grid">
+      <div class="card">
+        <p>
+          Die BOS Leitstelle Franken ist ein neuer Verband für Leitstellenspiel-Spieler,
+          die das Spiel locker angehen wollen. Wir stehen noch am Anfang und wollen
+          gemeinsam wachsen.
+        </p>
+      </div>
+      <div class="card">
+        <ul>
+          <li>Casual & entspannt</li>
+          <li>Hilfe für neue Spieler</li>
+          <li>Gemeinsame Verbandseinsätze</li>
+        </ul>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- Hero -->
-  <main id="top" class="hero">
-    <div class="wrap">
-      <div class="heroGrid">
-        <div class="heroCard">
-          <div class="heroContent">
-            <div class="kicker"><span class="dot"></span> Casual Community im Aufbau</div>
-            <h1>Entspannt spielen.<br/>Gemeinsam wachsen.</h1>
-            <p class="sub">
-              Wir sind ein Leitstellenspiel-Verband für Leute, die’s locker angehen:
-              kein Leistungsdruck, kein Zwang – dafür Teamplay, Hilfe und stabile Stimmung.
-            </p>
-
-            <div class="heroActions">
-              <a class="btn primary" href="https://discord.gg/wKeZ4f7uV" target="_blank" rel="noreferrer">Discord beitreten</a>
-              <a class="btn" href="#mitmachen">Mitmachen</a>
-              <a class="btn" href="#regeln">Regeln</a>
-            </div>
-
-            <div class="stats" aria-label="Kurzinfos">
-              <div class="stat">
-                <b>Stil</b>
-                <span>Casual / entspannt</span>
-              </div>
-              <div class="stat">
-                <b>Status</b>
-                <span>Aufbauphase – jetzt einsteigen</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="heroCard" style="background:linear-gradient(180deg, rgba(18,26,39,.55), rgba(15,21,32,.40));">
-          <div class="heroContent">
-            <h3 style="margin:0 0 10px;">Was du bei uns bekommst</h3>
-            <ul class="list">
-              <li class="li"><span class="tick"></span><div><b>Hilfe statt Elitismus</b><div style="color:var(--muted);font-size:13px;">Anfänger willkommen, Fragen okay.</div></div></li>
-              <li class="li"><span class="tick"></span><div><b>Keine Pflicht, kein Stress</b><div style="color:var(--muted);font-size:13px;">Du spielst, wann du Zeit hast.</div></div></li>
-              <li class="li"><span class="tick"></span><div><b>Gemeinsame Einsätze</b><div style="color:var(--muted);font-size:13px;">Zusammen fahren, gemeinsam wachsen.</div></div></li>
-            </ul>
-
-            <div class="cta" style="margin-top:16px;">
-              <div>
-                <b>Jetzt joinen, bevor’s voll wird.</b>
-                <span>Je früher du dabei bist, desto mehr kannst du mitgestalten.</span>
-              </div>
-              <a class="btn primary" href="https://discord.gg/wKeZ4f7uV" target="_blank" rel="noreferrer">Join</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Sections -->
-      <section id="ueber">
-        <div class="sectionTitle">
-          <h2>Über uns</h2>
-          <p>Kurzer Überblick, kein Roman.</p>
-        </div>
-        <div class="grid">
-          <div class="card">
-            <h3>Wer wir sind</h3>
-            <p>
-              BOS Leitstelle Franken ist eine Community rund ums Leitstellenspiel.
-              Wir starten gerade und bauen Schritt für Schritt einen Verband auf,
-              der angenehm bleibt – auch wenn er wächst.
-            </p>
-          </div>
-          <div class="card">
-            <h3>Wofür wir stehen</h3>
-            <ul class="list">
-              <li class="li"><span class="tick"></span>Respektvoller Umgang</li>
-              <li class="li"><span class="tick"></span>Hilfe & Teamplay</li>
-              <li class="li"><span class="tick"></span>Casual ohne Druck</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section id="regeln">
-        <div class="sectionTitle">
-          <h2>Regeln</h2>
-          <p>Einfach, klar, durchsetzbar.</p>
-        </div>
-        <div class="card">
-          <ul class="list">
-            <li class="li"><span class="tick"></span><div><b>Respekt</b><div style="color:var(--muted);font-size:13px;">Kein Beleidigen, kein Rumsticheln.</div></div></li>
-            <li class="li"><span class="tick"></span><div><b>Kein Spam / Drama</b><div style="color:var(--muted);font-size:13px;">Chat bleibt spielbezogen & entspannt.</div></div></li>
-            <li class="li"><span class="tick"></span><div><b>Keine Pflicht</b><div style="color:var(--muted);font-size:13px;">Verbandseinsätze sind freiwillig.</div></div></li>
-            <li class="li"><span class="tick"></span><div><b>Fair Play</b><div style="color:var(--muted);font-size:13px;">Keine Bots/Cheats.</div></div></li>
-          </ul>
-        </div>
-      </section>
-
-      <section id="mitmachen">
-        <div class="sectionTitle">
-          <h2>Mitmachen</h2>
-          <p>So kommst du rein.</p>
-        </div>
-        <div class="grid">
-          <div class="card">
-            <h3>Im Spiel</h3>
-            <p>
-              Tritt dem Verband bei und schreib kurz „Hi“ im Chat.
-              Wenn du neu bist: Sag’s – dann bekommst du direkt Hilfe (AAO, Aufbau, Tipps).
-            </p>
-          </div>
-          <div class="card" id="discord">
-            <h3>Discord (optional, aber sinnvoll)</h3>
-            <p>
-              Hier läuft der Austausch, Infos & ggf. Events. Kein Muss – aber deutlich entspannter.
-            </p>
-            <div class="heroActions" style="margin-top:12px;">
-              <a class="btn primary" href="https://discord.gg/wKeZ4f7uV" target="_blank" rel="noreferrer">Discord beitreten</a>
-              <a class="btn" href="https://discord.gg/wKeZ4f7uV" target="_blank" rel="noreferrer">Link kopieren</a>
-            </div>
-            <p style="margin-top:10px;color:var(--muted);font-size:13px;">
-              Link: <span style="color:var(--text);">discord.gg/wKeZ4f7uV</span>
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <footer>
-        <div class="footRow">
-          <div>© <span id="y"></span> BOS Leitstelle Franken</div>
-          <div class="smallLinks">
-            <a href="#top">Nach oben</a>
-            <a href="#regeln">Regeln</a>
-            <a href="https://discord.gg/wKeZ4f7uV" target="_blank" rel="noreferrer">Discord</a>
-          </div>
-        </div>
-      </footer>
+<section id="regeln">
+  <div class="wrap">
+    <h2>Regeln</h2>
+    <div class="card">
+      <ul>
+        <li>Respektvoller Umgang</li>
+        <li>Kein Spam, kein Drama</li>
+        <li>Verbandseinsätze freiwillig</li>
+        <li>Casual spielen – kein Zwang</li>
+      </ul>
     </div>
-  </main>
+  </div>
+</section>
 
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
+<section id="mitmachen">
+  <div class="wrap">
+    <h2>Mitmachen</h2>
+    <div class="card">
+      <p>
+        Tritt dem Verband im Leitstellenspiel bei oder komm direkt auf unseren Discord.
+        Neue Spieler sind jederzeit willkommen.
+      </p>
+      <br>
+      <a class="btn" href="https://discord.gg/wKeZ4f7uV" target="_blank">Zum Discord</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © <span id="year"></span> BOS Leitstelle Franken
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
 </body>
 </html>
